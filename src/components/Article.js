@@ -14,7 +14,7 @@ class Article extends Component {
         const {article} = this.props
         const {isOpen} = this.state
         const body = isOpen ? <section>{article.text}</section> : null
-        const comments = isOpen ? <Comments comments={article.comments}/> : null
+        const comments = isOpen && Array.isArray(article.comments) ? <Comments comments={article.comments}/> : null
         return (
             <div>
                 <h3 onClick={this.handleClick}>{article.title}</h3>
