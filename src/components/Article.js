@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Comments from './Comments'
+import CommentList from './CommentList'
 
 class Article extends Component {
 
@@ -16,7 +16,7 @@ class Article extends Component {
         const {isOpen, isCommentsOpen} = this.state
         const body = isOpen ? <section>{article.text}</section> : null
         const comments = isOpen && Array.isArray(article.comments)
-            ? <Comments
+            ? <CommentList
                 comments={article.comments}
                 isOpen={isCommentsOpen}
                 onToggle={this.handleCommentsToggle}/>
