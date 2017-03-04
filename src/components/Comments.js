@@ -2,7 +2,9 @@ import React from 'react'
 
 export default (props) => {
     const {
-        comments
+        comments,
+        isOpen,
+        onToggle
     } = props
 
     const listItems = comments.map(({ id, user, text}) => {
@@ -13,10 +15,8 @@ export default (props) => {
 
     return (
         <div>
-            <h4>Comments:</h4>
-            <ol>
-                {listItems}
-            </ol>
+            <p><button onClick={onToggle}>{isOpen ? 'Hide' : 'Show'} comments</button></p>
+            {isOpen ? <ol>{listItems}</ol> : null}
         </div>
     );
 }
