@@ -7,6 +7,7 @@ class Article extends Component {
         super()
         this.state = {
             isOpen: false,
+              //Лучше внести этот стейт в CommentList
             isCommentsOpen: false
         }
     }
@@ -15,6 +16,7 @@ class Article extends Component {
         const {article} = this.props
         const {isOpen, isCommentsOpen} = this.state
         const body = isOpen ? <section>{article.text}</section> : null
+        //Я б эту проверку спрятал в CommentList
         const comments = isOpen && Array.isArray(article.comments)
             ? <CommentList
                 comments={article.comments}
