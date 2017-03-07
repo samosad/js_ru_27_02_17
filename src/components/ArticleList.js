@@ -22,7 +22,9 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
-    articles: PropTypes.array.isRequired
+    articles: PropTypes.array.isRequired,
+    openItemId: PropTypes.string,
+    toggleOpenItem: PropTypes.func.isRequired
 }
 
 export default accordion(ArticleList)

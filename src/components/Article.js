@@ -22,7 +22,9 @@ Article.propTypes = {
         title: PropTypes.string.isRequired,
         text: PropTypes.string,
         comments: PropTypes.array
-    }).isRequired
+    }).isRequired,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func.isRequired
 }
 
 export default Article
