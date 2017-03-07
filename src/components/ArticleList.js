@@ -1,24 +1,22 @@
-import React, {PropTypes, Component} from 'react'
+import React, {PropTypes} from 'react'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 
-class ArticleList extends Component {
-    render() {
-        const {articles, openItemId, toggleOpenItem} = this.props
+function ArticleList(props) {
+    const {articles, openItemId, toggleOpenItem} = props
 
-        const articleComponents = articles.map(article => <li key={article.id}>
-            <Article article={article}
-                     isOpen={article.id === openItemId}
-                     toggleOpen={toggleOpenItem(article.id)}
-            />
-        </li>)
+    const articleComponents = articles.map(article => <li key={article.id}>
+        <Article article={article}
+                    isOpen={article.id === openItemId}
+                    toggleOpen={toggleOpenItem(article.id)}
+        />
+    </li>)
 
-        return (
-            <ul>
-                {articleComponents}
-            </ul>
-        )
-    }
+    return (
+        <ul>
+            {articleComponents}
+        </ul>
+    )
 }
 
 ArticleList.propTypes = {
