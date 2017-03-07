@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 import Article from './Article'
 
-export default class ArticleList extends Component {
+class ArticleList extends Component {
     state = {
         openArticleId: null
     }
@@ -33,3 +33,5 @@ export default class ArticleList extends Component {
 ArticleList.propTypes = {
     articles: PropTypes.array.isRequired
 }
+
+export default ArticleList
