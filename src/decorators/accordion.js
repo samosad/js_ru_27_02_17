@@ -8,7 +8,7 @@ export default (Component) => class AccorionDecoratedComponent extends React.Com
     toggleOpenItem = (openItemId) => (ev) => {
         ev.preventDefault()
         this.setState({
-            openItemId
+            openItemId: this.state.openItemId !== openItemId ? openItemId : null
         })
     }
 
