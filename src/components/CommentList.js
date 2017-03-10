@@ -17,6 +17,10 @@ class CommentList extends Component {
         this.size = this.container.getBoundingClientRect()
     }
 
+    handleCommentAdd = (comment) => {
+        console.log(comment)
+    }
+
     render() {
         const {isOpen, toggleOpen} = this.props;
 //        console.log('---', this.size)
@@ -24,7 +28,7 @@ class CommentList extends Component {
             <div ref={this.getContainerRef}>
                 <a href="#" onClick={toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
                 {this.getBody()}
-                {isOpen && <CommentForm onSubmit={(comment) => console.log(comment)}/>}
+                {isOpen && <CommentForm onSubmit={this.handleCommentAdd}/>}
             </div>
         )
     }

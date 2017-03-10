@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 
-class CommentForm extends React.Component {
+class CommentForm extends Component {
     static propTypes = {
-        onSubmit: React.PropTypes.func.required
+        onSubmit: PropTypes.func.isRequired
     };
 
     state = {
@@ -19,12 +19,18 @@ class CommentForm extends React.Component {
     };
 
     handleUserChange = (event) => {
+        if (event.target.value.length > 10) {
+            return
+        }
         this.setState({
             user: event.target.value
         })
     };
 
     handleTextChange = (event) => {
+        if (event.target.value.length > 150) {
+            return
+        }
         this.setState({
             text: event.target.value
         })
@@ -42,7 +48,7 @@ class CommentForm extends React.Component {
                 </div>
                 <div>
                     <label>Comment:<br/>
-                        <textarea name="text" cols="30" rows="10" value={text} onChange={this.handleTextChange}/>
+                        <textarea name="text" cols="30" rows="5" value={text} onChange={this.handleTextChange}/>
                     </label>
                 </div>
                 <button>Submit</button>
