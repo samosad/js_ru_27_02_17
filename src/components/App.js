@@ -3,6 +3,9 @@ import ArticleList from './ArticleList/index'
 import Chart from './Chart'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import DayPicker, { DateUtils } from 'react-day-picker'
+import "react-day-picker/lib/style.css"
+
 
 class App extends Component {
     static propTypes = {
@@ -11,21 +14,37 @@ class App extends Component {
 
     state = {
         text: '',
-        selected: null
+        selected: null,
+        from: null,
+        to: null
     }
 
     render() {
         const { articles } = this.props
+        const { text, selected, from, to } = this.state
         const options = articles.map(article => ({
             label: article.title,
             value: article.id
         }))
         return (
             <div>
-                Enter your name: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
-                <Select options = {options} value={this.state.selected} onChange = {this.handleSelectChange} multi/>
-                <ArticleList articles={this.props.articles}/>
-                <Chart articles={this.props.articles}/>
+                <div>
+                    Enter your name: <input type="text" value={text} onChange={this.handleTextChange}/>
+                </div>
+                <hr/>
+                <div>
+                    Choose date range:
+                    { from && to && <b> ({from.toLocaleString()} - {to.toLocaleString()})</b> }
+                    <DayPicker
+                        numberOfMonths={2}
+                        selectedDays={[from, { from, to }]}
+                        onDayClick={this.handleDayClick}
+                    />
+                </div>
+                <hr/>
+                <Select options = {options} value={selected} onChange = {this.handleSelectChange} multi/>
+                <ArticleList articles={articles}/>
+                <Chart articles={articles}/>
             </div>
         )
     }
@@ -40,6 +59,11 @@ class App extends Component {
         this.setState({
             text: ev.target.value
         })
+    }
+
+    handleDayClick = day => {
+        const range = DateUtils.addDayToRange(day, this.state);
+        this.setState(range);
     }
 }
 
