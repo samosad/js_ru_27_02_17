@@ -1,8 +1,8 @@
-import {SELECT_ARTICLES} from '../constants'
+import {SELECT_ARTICLES, SET_DATE_RANGE} from '../constants'
 
 const defaultState = {
-    from: '',
-    to: '',
+    from: null,
+    to: null,
     selected: []
 }
 
@@ -11,6 +11,12 @@ export default (state = defaultState, action) => {
         case SELECT_ARTICLES:
             return Object.assign({}, state, {
                 selected: action.payload
+            })
+
+        case SET_DATE_RANGE:
+            return Object.assign({}, state, {
+                from: action.payload.from || null,
+                to: action.payload.to || null,
             })
     }
     return state
