@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 
 class DateRange extends Component {
-    state = {
-        from: null,
-        to: null
+    static propTypes = {
+        from: PropTypes.string,
+        to: PropTypes.string
     }
 
     handleDayClick = (e, day) => {
@@ -13,7 +13,7 @@ class DateRange extends Component {
     }
 
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props;
         const selectedRange = from && to && `${from.toDateString()} - ${to.toDateString()}`
         return (
             <div className="date-range">
