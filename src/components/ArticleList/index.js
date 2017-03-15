@@ -9,8 +9,15 @@ class ArticleList extends Component {
     isArticleVisible = (article) => {
         const {from, to, selected} = this.props.filters
         const selectedIds = selected.map(option => option.value)
+        const articleDate = new Date(article.date)
 
         if (selectedIds.length && !selectedIds.includes(article.id)) {
+            return false
+        }
+        if (from && from > articleDate) {
+            return false
+        }
+        if (to && to < articleDate) {
             return false
         }
         return true

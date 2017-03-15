@@ -21,9 +21,10 @@ class Article extends Component {
                 <CommentList comments={article.comments} ref={this.getCommentList}/>
             </section>
             : null
+        const date = (new Date(article.date)).toLocaleString()
         return (
             <div>
-                <h3 onClick={toggleOpen}>{article.title}</h3>
+                <h3 onClick={toggleOpen}>{article.title} [{date}]</h3>
                 <a href="#" onClick={this.handleDelete}>delete me</a>
                 <CSSTransition
                     transitionName="article"
