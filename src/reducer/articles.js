@@ -10,5 +10,5 @@ export default (state = articles, action) => {
 
     }
 
-    return articles
+    return state
 }
