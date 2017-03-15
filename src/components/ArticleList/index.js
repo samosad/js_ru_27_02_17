@@ -26,6 +26,7 @@ class ArticleList extends Component {
     render() {
         const {articles, toggleOpenItem, isItemOpened} = this.props
 
+        //ок, но еще лучше делать фильтрацию в коннекте
         const articleComponents = articles.filter(this.isArticleVisible).map(article => <li key={article.id}>
             <Article article={article}
                      isOpen={isItemOpened(article.id)}
