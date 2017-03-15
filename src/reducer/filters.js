@@ -10,6 +10,7 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case SELECT_ARTICLES:
             return Object.assign({}, state, {
+            //а здесь лучше просто id хранить, а не все что в Select приходит
                 selected: action.payload
             })
 
