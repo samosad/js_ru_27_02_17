@@ -18,7 +18,10 @@ class Article extends Component {
         const body = isOpen
             ? <section>
                 {article.text}
-                <CommentList comments={article.comments} ref={this.getCommentList}/>
+                <CommentList
+                    comments={article.comments}
+                    articleId={article.id}
+                    ref={this.getCommentList}/>
             </section>
             : null
         return (
@@ -54,6 +57,7 @@ class Article extends Component {
 
 Article.propTypes = {
     article: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         text: PropTypes.string,
         comments: PropTypes.array

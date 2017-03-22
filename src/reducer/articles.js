@@ -8,7 +8,10 @@ export default (state = normalizedArticles, action) => {
         case DELETE_ARTICLE:
             return state.filter(article => article.id !== payload.id)
         case ADD_COMMENT:
-            return state
+            const articleIndex = state.findIndex(a => a.id === payload.articleId)
+            const newState = [...state]
+            newState[articleIndex].comments.push(payload.id)
+            return newState
     }
 
     return state

@@ -4,6 +4,7 @@ import {addComment} from '../AC'
 
 class NewCommentForm extends Component {
     static propTypes = {
+        articleId: PropTypes.string
     }
 
     state = {
@@ -22,7 +23,7 @@ class NewCommentForm extends Component {
 
     handleSubmit = ev => {
         ev.preventDefault()
-        this.props.addComment({...this.state})
+        this.props.addComment({...this.state, articleId: this.props.articleId})
         this.setState({
             user: '',
             text: ''
