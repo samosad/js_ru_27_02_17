@@ -10,6 +10,7 @@ export default (state = normalizedArticles, action) => {
         case ADD_COMMENT:
             const articleIndex = state.findIndex(a => a.id === payload.articleId)
             const newState = [...state]
+            //здесь ты мутируешь стейт. Возвращаешь новый массив, но внутри меняешь объекты по ссылке
             newState[articleIndex].comments.push(payload.id)
             return newState
     }
