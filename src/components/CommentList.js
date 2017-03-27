@@ -44,7 +44,7 @@ class CommentList extends Component {
         const {article, isOpen} = this.props
         if (!isOpen) return null
 
-        if (article.loadingComments) {
+        if (article.loadingComments || !article.commentsLoaded) {
             return <Loader />
         }
 
