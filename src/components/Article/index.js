@@ -5,6 +5,7 @@ import Loader from '../Loader'
 import CSSTransition from 'react-addons-css-transition-group'
 import {connect} from 'react-redux'
 import {deleteArticle, loadArticleById} from '../../AC'
+import {createMatchedArticleSelector} from '../../selectors'
 import './style.css'
 
 class Article extends Component {
@@ -71,9 +72,8 @@ Article.propTypes = {
 }
 
 function mapStateToProps(state, {match}) {
-    return {
-        article: state.articles.getIn(['entities', match.params.id])
-    }
+    const articleSelector = createMatchedArticleSelector();
+    return (state, props) => ({ article: articleSelector(state, props) })
 }
 
 export default connect(mapStateToProps, { deleteArticle, loadArticleById })(Article)
