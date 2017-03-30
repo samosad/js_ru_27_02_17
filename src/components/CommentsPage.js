@@ -3,10 +3,13 @@ import ArticleList from './ArticleList/index'
 import Article from './Article/index'
 import Loader from './Loader'
 import Comment from './Comment'
+import Pager from './Pager'
 import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {loadComments} from '../AC'
-import {createCommentsPageSelector} from '../selectors'
+import {commentsSelector} from '../selectors'
+
+const LIMIT = 5
 
 class CommentsPage extends Component {
     static propTypes = {
@@ -14,13 +17,23 @@ class CommentsPage extends Component {
     };
 
     componentWillMount() {
-        this.props.loadComments(5, 10)
+        this.props.loadComments(LIMIT, this.getOffset(this.props.match.params.page))
     }
 
-    componentWillReceiveProps({match}) {
+    componentWillReceiveProps({match, comments}) {
+        const offset = this.getOffset(match.params.page)
+
         if (match.params.page !== this.props.match.params.page) {
-            this.props.loadComments(5, 10)
+            this.props.loadComments(LIMIT, offset)
         }
+    }
+
+    getPagesCount() {
+        return Math.ceil(this.props.total / LIMIT)
+    }
+
+    getOffset(page) {
+        return LIMIT * page
     }
 
     render() {
@@ -32,23 +45,25 @@ class CommentsPage extends Component {
 
         return (
             <div>
-                <ul>
-                    {this.getComments()}
-                </ul>
+                <h2>Comments:</h2>
+                {this.getComments()}
+                <Pager pages={this.getPagesCount()} path="/comments/"/>
             </div>
         )
     }
 
     getComments() {
-        return this.props.comments.map(id => <li key={id}><Comment id={id} /></li>)
+        const {comments, match} = this.props
+        const offset = this.getOffset(match.params.page)
+        
+        return comments.slice(offset, offset + LIMIT).map(id => <div key={id}>{id}) <Comment id={id} /></div>)
     }
 }
 
 function mapStateToProps(state, props) {
-    const commentsPageSelector = createCommentsPageSelector()
-
     return {
-        comments: commentsPageSelector(state, props),
+        comments: commentsSelector(state, props),
+        total: state.comments.total,
         loading: state.comments.loading,
         error: state.comments.error
     }

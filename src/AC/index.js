@@ -97,6 +97,6 @@ export function loadArticleById(id) {
 export function loadComments(limit = 5, offset = 0) {
     return {
         type: LOAD_COMMENTS,
-        callAPI: `/api/comment?limit=${limit}&offset=${limit}`
+        callAPI: `/api/comment?limit=${limit}&offset=${offset}`
     }
 }
