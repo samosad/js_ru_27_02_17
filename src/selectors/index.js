@@ -5,6 +5,7 @@ export const getFilters = state => state.filters
 export const getComments = state => state.comments.entities
 export const getId = (state, props) => props.id
 export const getMatch = (state, props) => props.match
+export const getTotalComments = state => state.comments.total
 
 export const filteredArticlesSelector = createSelector(getArticles, getFilters, getFilteredArticles)
 
@@ -27,3 +28,8 @@ function getFilteredArticles(articles, filters) {
             (!from || !to || (published > from && published < to))
     })
 }
+
+export const createCommentsPageSelector = () => createSelector(getComments, getTotalComments, getMatch,
+    (comments, total, match) => comments.keySeq().toArray()
+
+)
