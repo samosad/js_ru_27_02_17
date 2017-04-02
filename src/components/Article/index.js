@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {deleteArticle, loadArticleById} from '../../AC'
 import {articleByIdSelector} from '../../selectors'
 import './style.css'
+import locale from '../../locale'
 
 class Article extends Component {
     /*
@@ -28,7 +29,8 @@ class Article extends Component {
     }
 
     static contextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        language: PropTypes.string
     }
 
     render() {
@@ -37,7 +39,7 @@ class Article extends Component {
 
         const body = isOpen
             ? <section>
-                <p>User: {this.context.user}</p>
+                <p>{locale[this.context.language].header.User}: {this.context.user}</p>
                 {article.text}
                 {article.loading && <Loader />}
                 <CommentList article={article} ref={this.getCommentList}/>
@@ -46,7 +48,7 @@ class Article extends Component {
         return (
             <div>
                 <h3 onClick={toggleOpen}>{article.title}</h3>
-                <a href="#" onClick={this.handleDelete}>delete me</a>
+                <a href="#" onClick={this.handleDelete}>{locale[this.context.language].label.delete}</a>
                 <CSSTransition
                     transitionName="article"
                     transitionEnterTimeout={500}
@@ -90,4 +92,4 @@ function mapStateToProps(state, {match}) {
     }
 }
 
-export default connect(mapStateToProps, { deleteArticle, loadArticleById })(Article)
+export default connect(mapStateToProps, { deleteArticle, loadArticleById }, null, {pure: false})(Article)

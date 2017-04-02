@@ -10,22 +10,26 @@ import CommentsPage from './CommentsPage'
 import Menu, {MenuItem} from './Menu/index'
 import {loadAllArticles} from '../AC'
 import history from '../history'
+import locale from '../locale'
 
 class App extends Component {
     static propTypes = {
     };
 
     static childContextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        language: PropTypes.string
     }
 
     state = {
-        text: ''
+        text: '',
+        language: 'ru'
     }
 
     getChildContext() {
         return {
-            user: this.state.text
+            user: this.state.text,
+            language: this.state.language
         }
     }
 
@@ -37,7 +41,14 @@ class App extends Component {
         return (
             <ConnectedRouter history={history}>
                 <div>
-                    Enter your name: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
+                    <div>
+                        {locale[this.state.language].label.Language}: <label><input type="radio" value="ru" name="language"
+                                                   onChange={this.handleLangChange}
+                                                   checked={this.state.language === 'ru'}/>ru </label>
+                        <label><input type="radio" value="en" name="language" onChange={this.handleLangChange}
+                                         checked={this.state.language === 'en'}/>en</label>
+                    </div>
+                    {locale[this.state.language].label.User}: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
                     <Menu>
                         <MenuItem path="/counter"/>
                         <MenuItem path="/filters"/>
@@ -62,6 +73,12 @@ class App extends Component {
 
         this.setState({
             text: ev.target.value
+        })
+    }
+
+    handleLangChange = event => {
+        event.target.checked && this.setState({
+            language: event.target.value
         })
     }
 }

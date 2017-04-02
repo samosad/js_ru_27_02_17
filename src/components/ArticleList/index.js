@@ -6,10 +6,12 @@ import CSSTransition from 'react-addons-css-transition-group'
 import accrdion from '../../decorators/accordion'
 import {filteredArticlesSelector} from '../../selectors/index'
 import './style.css'
+import locale from '../../locale'
 
 class ArticleList extends Component {
     static contextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        language: PropTypes.string
     }
 
     render() {
@@ -28,7 +30,7 @@ class ArticleList extends Component {
 
         return (
             <div>
-                <h3>User: {this.context.user}</h3>
+                <h3>{locale[this.context.language].header.User}: {this.context.user}</h3>
                 <CSSTransition component="ul"
                                transitionName="article-list"
                                transitionAppear={true}

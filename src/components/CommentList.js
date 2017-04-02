@@ -5,6 +5,7 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
 import Loader from './Loader'
+import locale from '../locale'
 
 class CommentList extends Component {
 
@@ -13,7 +14,8 @@ class CommentList extends Component {
     }
 
     static contextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        language: PropTypes.string
     }
 
     componentWillReceiveProps({isOpen, article, checkAndLoadArticleComments}) {
@@ -26,10 +28,10 @@ class CommentList extends Component {
 
     render() {
         const {isOpen, toggleOpen} = this.props
-//        console.log('---', this.size)
+        const label = `${locale[this.context.language].label[isOpen ? 'show' : 'hide']} ${locale[this.context.language].label.comments}`
         return (
             <div ref={this.getContainerRef}>
-                <a href="#" onClick={toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
+                <a href="#" onClick={toggleOpen}>{label}</a>
                 {this.getBody()}
             </div>
         )
@@ -59,7 +61,7 @@ class CommentList extends Component {
         const commentItems = article.comments.map(id => <li key={id}><Comment id={id} /></li>)
         return (
             <div>
-                user: {this.context.user}
+                {locale[this.context.language].header.User}: {this.context.user}
                 <ul>
                     {commentItems}
                 </ul>
